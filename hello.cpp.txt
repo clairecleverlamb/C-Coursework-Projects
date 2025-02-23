@@ -1,0 +1,21 @@
+// A simple "hello world" program in C++
+// Max Luttrell, CS110B
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+  cout << "Hello World!" << endl;
+
+  return 0;
+}
+
+/* sample output 
+[cchen584@hills ~]$ ./a.out
+Hello World!
+[cchen584@hills ~]$ ./a.out
+Hello World!
+[cchen584@hills ~]$ ./a.out
+Hello World!
+*/
