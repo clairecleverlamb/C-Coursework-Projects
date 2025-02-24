@@ -22,12 +22,94 @@
 // 22. Call your swap function with the addresses of x and y, then print their values. (x should be 99, y should be 0).
 // 23. Call your swap function with the address of the two elements in array ‘a’, then print their values. (a[0] should be 0, a[1] should be 99)
 
-
 #include <iostream>
 using namespace std;
 
-int main() {
-    int x, y; 
+// 11
+void noNegatives(int *x)
+{
+    if (*x < 0)
+    {
+        *x = 0;
+    }
+}
+
+// 21
+void swap(int *a, int *b)
+{
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+int main()
+{
+    int x, y;
     int *p1;
     p1 = &x;
+    *p1 = 99;
+    cout << "x: " << x << endl;
+    cout << "Using p1: " << *p1 << endl;
+    p1 = &y;
+    *p1 = -300;
+    int temp;
+    int *p2;
+
+    // 10
+    p1 = &x;
+    p2 = &y;
+    temp = *p1;
+    *p1 = *p2;
+    *p2 = temp;
+
+    // 12
+    noNegatives(&x);
+    noNegatives(&y);
+    // 13 use p2 to display the values in x and y
+    p2 = &x;
+    cout << "x after noNegatives" << *p2 << endl;
+    p2 = &y;
+    cout << "y after noNegatives" << *p2 << endl;
+
+    // 14
+    int a[2];
+    p2 = &a[0];
+    *p2 = x;
+
+    p2 = &a[1];
+    *p2 = y;
+
+    cout << "Address of a[0]: " << &a[0] << endl;
+    cout << "Address of a[1]: " << &a[1] << endl;
+
+    // 19 Swap the values in the two elements of array 'a'
+    p1 = &a[0];
+    p2 = &a[1];
+    temp = *p1;
+    *p1 = *p2;
+    *p2 = temp;
+    // 20
+    cout << "a[0]: " << a[0] << ", a[1]: " << a[1] << endl;
+
+    swap(&x, &y);
+    cout << "After swap function - x: " << x << ", y: " << y << endl;
+
+    // 23 call swap function on elements of array 'a'
+    swap(&a[0], &a[1]);
+    cout << "After swapping array elements - a[0]: " << a[0] << ", a[1]: " << a[1] << endl;
+
+    return 0;
 }
+
+/* Sample Result 
+[cchen584@hills ~]$ ./a.out
+x: 99
+Using p1: 99
+x after noNegatives0
+y after noNegatives99
+Address of a[0]: 0x7ffec8182a5c
+Address of a[1]: 0x7ffec8182a60
+a[0]: 99, a[1]: 0
+After swap function - x: 99, y: 0
+After swapping array elements - a[0]: 0, a[1]: 99
+*/
