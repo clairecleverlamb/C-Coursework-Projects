@@ -176,3 +176,30 @@ int main() {
 
     return 0;
 }
+
+/* sample outcomes 
+Testing lastIndexOf:
+lastIndexOf("Giants", 'a') = 2 (expected 2)
+lastIndexOf("Giants", 'z') = -1 (expected -1)
+
+Testing reverse:
+Before reverse: flower
+After reverse: rewolf (expected rewolf)
+
+Testing replace:
+Before replace: go giants
+After replace: Go Giants (expected Go Giants)
+Number of replacements: 2 (expected 2)
+
+Testing findSubstring:
+findSubstring("Skyscraper", "ysc") = -1 (expected 2)
+findSubstring("Skyscraper", "xyz") = -1 (expected -1)
+
+Testing isPalindrome:
+isPalindrome("abba") = true (expected true)
+isPalindrome("abc ba") = false (expected false)
+
+Testing reverseWords:
+Before reverseWords: The Giants won the Pennant!
+After reverseWords: Pennant! the won Giants The (expected Pennant! the won Giants The)
+*/
