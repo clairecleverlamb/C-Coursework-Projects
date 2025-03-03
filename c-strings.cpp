@@ -7,7 +7,7 @@ using namespace std;
 // it returns -1 if the target char does not appear in the string.  
 // For example, if s is “Giants” and target is ‘a’ the function returns 2.
 
-int lastIndexOf(char *s, char target){
+int lastIndexOf(const char *s, char target){
     int lastIndex = -1;
     int i = 0; 
 
@@ -42,25 +42,56 @@ void reverse(char *s){
 // it returns 0 and does not change the string.  
 // For example, if s is “go giants”, target is ‘g’, and replacement is ‘G’, the function should change s to “Go Giants” and return 2.
 
-int replace(char *s, char target, char replacementChar){
+int replace( char *s, char target, char replacementChar){
+    int count = 0;
+    int i = 0;
+    while (s[i] != '\0'){
+        if (s[i] == target) {
+            s[i] = replacementChar;
+            count++;
+        } 
+        i++;
+    }
+    return count;
 }
  
-
-
 
 // 4.  This function returns the index in string s where the substring 
 // can first be found. For example if s is “Skyscraper” and substring is “ysc” the function would return 2.  
 // It should return -1 if the substring does not appear in the string.
 
-int findSubstring(char *s, char substring[])
+int findSubstring(const char *s, const char substring[]) {
+    int sLen = strlen(s);
+    int subLen = strlen(substring);
+    if (subLen > sLen) return -1;
+
+    for(int i = 0; i <= sLen - subLen; i++){
+        int match = 1;
+        for (int j = 0; i <= sLen - subLen; i++) {
+            if (s[i + j] != substring[j]) {
+                match = 0; 
+                break;
+            }
+        }
+        if (match) return i;
+    }
+    return -1; 
+}
  
 
 // 5. This function returns true if the argument string is a palindrome. 
 // It returns false if it is not.  A palindrome is a string that is spelled the same as its reverse.  
 // For example “abba” is a palindrome. So is “hannah”, “abc cba”, and “radar”.
 
-bool isPalindrome(char *s)
-Note: do not get confused by white space characters. They should not get any special treatment.  “abc ba” is not a palindrome. It is not identical to its reverse.
+bool isPalindrome(const char *s){
+    int len = strlen(s);
+    for (int i = 0; i < len/2; i++){
+        if (s[i] != s[len -1 - i]){
+            return false;
+        }
+    }
+    return true;
+}
 
  
 
@@ -69,14 +100,79 @@ Note: do not get confused by white space characters. They should not get any spe
 //   separated by spaces (only spaces, not tabs, \n etc.).  
 //   So, for example, if s is “The Giants won the Pennant!” the function should change s to “Pennant! the won Giants The”
 
-void reverseWords(char *s)
+void reverseWords(char *s){
+    reverse(s);
+    int i = 0; 
+    int len = strlen(s);
+    while (i < len){
+        while (s[i] == ' ' && i < len) i++;
+        if (i >= len) break;
+
+        int start = i;
+        while (s[i] != ' ' && s[i] != '\0') i++;
+        int end = i - 1;
+        
+        while (start < end){
+            char temp = s[start];
+            s[start] = s[end];
+            s[end] = temp;
+            start++;
+            end--;
+        }
+    }
+}
 
 
 
 
 
 /// testing main()
-int main(){
-    printf("Testing lastIndexOf: \n");
-    char s1[] = "Giant"; 
+int main() {
+    // Test lastIndexOf
+    cout << "Testing lastIndexOf:" << endl;
+    const char* s1 = "Giants";
+    cout << "lastIndexOf(\"" << s1 << "\", 'a') = " << lastIndexOf(s1, 'a') << " (expected 2)" << endl;
+    cout << "lastIndexOf(\"" << s1 << "\", 'z') = " << lastIndexOf(s1, 'z') << " (expected -1)" << endl;
+    cout << endl;
+
+    // Test reverse
+    cout << "Testing reverse:" << endl;
+    char s2[] = "flower";
+    cout << "Before reverse: " << s2 << endl;
+    reverse(s2);
+    cout << "After reverse: " << s2 << " (expected rewolf)" << endl;
+    cout << endl;
+
+    // Test replace
+    cout << "Testing replace:" << endl;
+    char s3[] = "go giants";
+    cout << "Before replace: " << s3 << endl;
+    int count = replace(s3, 'g', 'G');
+    cout << "After replace: " << s3 << " (expected Go Giants)" << endl;
+    cout << "Number of replacements: " << count << " (expected 2)" << endl;
+    cout << endl;
+
+    // Test findSubstring
+    cout << "Testing findSubstring:" << endl;
+    const char* s4 = "Skyscraper";
+    const char* sub = "ysc";
+    cout << "findSubstring(\"" << s4 << "\", \"" << sub << "\") = " << findSubstring(s4, sub) << " (expected 2)" << endl;
+    cout << "findSubstring(\"" << s4 << "\", \"xyz\") = " << findSubstring(s4, "xyz") << " (expected -1)" << endl;
+    cout << endl;
+
+    // Test isPalindrome
+    cout << "Testing isPalindrome:" << endl;
+    const char* s5a = "abba";
+    const char* s5b = "abc ba";
+    cout << "isPalindrome(\"" << s5a << "\") = " << (isPalindrome(s5a) ? "true" : "false") << " (expected true)" << endl;
+    cout << "isPalindrome(\"" << s5b << "\") = " << (isPalindrome(s5b) ? "true" : "false") << " (expected false)" << endl;
+    cout << endl;
+
+    // Test reverseWords
+    cout << "Testing reverseWords:" << endl;
+    char s6[] = "The Giants won the Pennant!";
+    reverseWords(s6);
+    cout << "After reverseWords: " << s6 << " (expected Pennant! the won Giants The)" << endl;
+
+    return 0;
 }
